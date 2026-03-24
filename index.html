@@ -6,360 +6,672 @@
   <title>MIS Extra Credit – Chapter 1: Setting the Stage</title>
   <style>
     :root {
-      --burnt-orange: #bf5700;
-      --dark: #222;
-      --light: #fffaf5;
-      --gray: #f3f3f3;
-      --border: #ddd;
-      --accent: #7a3b00;
+      --bg: #f6efe8;
+      --card: rgba(255,255,255,0.82);
+      --card-strong: #fffaf6;
+      --text: #1f1a17;
+      --muted: #5f5751;
+      --line: rgba(120, 76, 35, 0.16);
+      --primary: #bf5700;
+      --primary-dark: #8c3f00;
+      --accent: #ffcf99;
+      --shadow: 0 18px 40px rgba(60, 31, 8, 0.10);
+      --radius: 22px;
+      --max: 1120px;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
-      color: var(--dark);
-      background: #fcfcfc;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 210, 155, 0.7), transparent 30%),
+        radial-gradient(circle at top right, rgba(191, 87, 0, 0.10), transparent 28%),
+        linear-gradient(180deg, #fff8f2 0%, var(--bg) 46%, #f2e5d7 100%);
+      line-height: 1.65;
     }
 
-    header {
-      background: linear-gradient(135deg, var(--burnt-orange), #d67a2c);
-      color: white;
-      padding: 2.5rem 1.25rem;
-      text-align: center;
+    a { color: inherit; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
-
-    header p {
-      max-width: 850px;
-      margin: 0.75rem auto 0;
-      font-size: 1rem;
-    }
-
-    nav {
-      background: white;
-      border-bottom: 1px solid var(--border);
-      padding: 0.85rem 1rem;
+    .topbar {
       position: sticky;
       top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(255, 248, 242, 0.82);
+      border-bottom: 1px solid rgba(191, 87, 0, 0.10);
     }
 
-    nav a {
-      color: var(--burnt-orange);
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), #e78c3d);
+      color: white;
+      box-shadow: 0 10px 24px rgba(191, 87, 0, 0.24);
+      font-size: 0.95rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-links a {
       text-decoration: none;
-      margin-right: 1rem;
-      font-weight: bold;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(191, 87, 0, 0.09);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      padding: 56px 0 28px;
+    }
+
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .side-card,
+    .section-card,
+    .quiz-card,
+    .source-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-card {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -30px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 207, 153, 0.9), rgba(255, 207, 153, 0));
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(191, 87, 0, 0.10);
+      color: var(--primary-dark);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 760px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin: 16px 0 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #d87927);
+      color: white;
+      box-shadow: 0 10px 24px rgba(191, 87, 0, 0.22);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.76);
+      color: var(--primary-dark);
+      border: 1px solid var(--line);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .side-card {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .mini-stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,248,242,0.78));
+      border: 1px solid var(--line);
+    }
+
+    .mini-stat .label {
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    .mini-stat .value {
+      margin-top: 6px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary-dark);
     }
 
     main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 1.5rem;
+      padding: 8px 0 56px;
     }
 
-    section {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .section-card,
+    .quiz-card,
+    .source-card {
+      padding: 28px;
     }
 
     h2 {
-      color: var(--burnt-orange);
-      margin-top: 0;
+      margin: 0 0 14px;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+      color: var(--primary-dark);
     }
 
-    h3 {
-      color: var(--accent);
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .overview-item {
+      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,248,242,0.7));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .overview-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+    }
+
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
     }
 
     .term {
-      background: var(--light);
-      border-left: 5px solid var(--burnt-orange);
-      padding: 0.9rem 1rem;
-      margin: 0.85rem 0;
-      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,249,244,0.82));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .term::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), #efb06e);
     }
 
     .term strong {
       display: block;
-      font-size: 1.05rem;
-      margin-bottom: 0.35rem;
+      color: var(--primary-dark);
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+    }
+
+    .highlight {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(191, 87, 0, 0.11), rgba(255, 207, 153, 0.35));
+      border: 1px solid rgba(191, 87, 0, 0.16);
+      font-weight: 700;
+    }
+
+    .quiz-list {
+      display: grid;
+      gap: 16px;
     }
 
     .quiz-question {
-      margin-bottom: 1.1rem;
-      padding: 0.9rem;
-      background: var(--gray);
-      border-radius: 8px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.93), rgba(247,238,230,0.76));
     }
+
+    .quiz-question strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .quiz-question ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .quiz-question li { margin-bottom: 6px; }
 
     .answer {
-      font-weight: bold;
-      color: #0b6b2a;
-      margin-top: 0.5rem;
+      margin-top: 12px;
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(22, 120, 55, 0.10);
+      color: #166b37;
+      font-weight: 800;
+      font-size: 0.92rem;
     }
 
-    ul li { margin-bottom: 0.45rem; }
+    .source-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .source-list li { margin-bottom: 8px; }
 
     footer {
+      padding: 10px 0 46px;
+    }
+
+    .footer-card {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 20px 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(191, 87, 0, 0.11);
+      box-shadow: var(--shadow);
+      color: var(--muted);
       text-align: center;
-      padding: 2rem 1rem;
-      color: #555;
-      font-size: 0.95rem;
     }
 
-    .small {
-      font-size: 0.95rem;
-      color: #444;
+    .footer-card strong {
+      color: var(--primary-dark);
     }
 
-    code {
-      background: #f1f1f1;
-      padding: 0.15rem 0.35rem;
-      border-radius: 4px;
+    @media (max-width: 900px) {
+      .hero-wrap,
+      .term-grid,
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-card,
+      .section-card,
+      .quiz-card,
+      .source-card,
+      .side-card {
+        padding: 22px;
+      }
+
+      .nav-links {
+        gap: 6px;
+      }
+
+      .nav-links a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Chapter 1 Study Guide – Setting the Stage</h1>
-    <p>
-      This page reviews core ideas from Chapter 1, including self-directed learning,
-      mental models, the curse of knowledge, the hype cycle, and the relationship between
-      technology investment and actual adoption.
-    </p>
-  </header>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">MIS</div>
+        <div>Exam 1 Extra Credit Study Guide</div>
+      </div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#vocabulary">Vocabulary</a>
+        <a href="#connections">Why It Matters</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#sources">Sources</a>
+      </div>
+    </div>
+  </div>
 
-  <nav>
-    <a href="#overview">Overview</a>
-    <a href="#vocab">Vocabulary</a>
-    <a href="#connections">Why It Matters</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#citations">Citations</a>
-  </nav>
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div class="hero-card">
+        <div class="eyebrow">Chapter 1 • Setting the Stage</div>
+        <h1>Understand the core ideas behind information systems before the test.</h1>
+        <p>
+          This page reviews the biggest Chapter 1 ideas: self-directed learning, mental models,
+          the curse of knowledge, the hype cycle, and the difference between technology investment,
+          adoption, and diffusion.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#vocabulary">Start Studying</a>
+          <a class="btn btn-secondary" href="#quiz">Jump to Quiz</a>
+        </div>
+      </div>
+
+      <aside class="side-card">
+        <div class="mini-stat">
+          <div class="label">Chapter Focus</div>
+          <div class="value">People + Tech + Process</div>
+        </div>
+        <div class="mini-stat">
+          <div class="label">Study Tip</div>
+          <div class="value">Know the precise definitions</div>
+        </div>
+        <div class="mini-stat">
+          <div class="label">Key Reminder</div>
+          <div class="value">Investment ≠ Adoption ≠ Diffusion</div>
+        </div>
+      </aside>
+    </div>
+  </section>
 
   <main>
-    <section id="overview">
-      <h2>Chapter Overview</h2>
-      <p>
-        Chapter 1 introduces the idea that information systems are not just about computers.
-        They are also about people, business processes, communication, and the assumptions
-        people bring into a system. The slides emphasize that technology is shaped by human
-        thinking, and that misunderstanding often happens because experts forget what it is
-        like to be beginners.
-      </p>
-      <ul>
-        <li>Self-directed learning is essential in technology fields.</li>
-        <li>Mental models affect how people design and use systems.</li>
-        <li>The curse of knowledge makes communication harder.</li>
-        <li>The hype cycle helps explain why technologies rise, disappoint, and mature.</li>
-        <li>Investment in technology is not the same as adoption or diffusion.</li>
-      </ul>
-    </section>
+    <div class="container grid">
+      <section class="section-card" id="overview">
+        <h2>Chapter Overview</h2>
+        <p class="section-intro">
+          Chapter 1 introduces the big idea that information systems are not just about computers.
+          They also involve people, communication, business processes, and the assumptions people bring into a system.
+        </p>
 
-    <section id="vocab">
-      <h2>Vocabulary and Key Concepts</h2>
+        <div class="overview-grid">
+          <div class="overview-item">
+            <strong>Self-Directed Learning</strong>
+            Technology changes fast, so MIS students and professionals need to learn independently and adapt.
+          </div>
+          <div class="overview-item">
+            <strong>Mental Models</strong>
+            People design and use systems based on their assumptions about how the world works.
+          </div>
+          <div class="overview-item">
+            <strong>Curse of Knowledge</strong>
+            Experts often forget what it feels like to be a beginner, which makes communication harder.
+          </div>
+          <div class="overview-item">
+            <strong>Hype vs. Reality</strong>
+            A new technology can get huge attention before it delivers practical value.
+          </div>
+        </div>
+      </section>
 
-      <div class="term">
-        <strong>Self-Directed Learning</strong>
-        The process of learning independently by identifying what you need to know,
-        finding trustworthy sources, and applying that knowledge to a problem.
-        In MIS, this matters because technology changes quickly and many problems require
-        students and professionals to teach themselves new tools.
-      </div>
+      <section class="section-card" id="vocabulary">
+        <h2>Vocabulary and Key Concepts</h2>
+        <p class="section-intro">
+          These definitions are written to be clear, precise, and test-ready.
+        </p>
 
-      <div class="term">
-        <strong>Mental Model</strong>
-        A mental model is a person’s internal way of understanding how the world works.
-        It can be thought of as a set of beliefs, rules, or assumptions shaped by background,
-        education, culture, and experience. Mental models influence how people design systems,
-        interpret information, and make decisions.
-      </div>
+        <div class="term-grid">
+          <div class="term">
+            <strong>Self-Directed Learning</strong>
+            The process of learning independently by identifying what you need to know, finding trustworthy sources, and applying that knowledge to a problem. In MIS, this matters because technology changes quickly and many problems require people to teach themselves new tools.
+          </div>
 
-      <div class="term">
-        <strong>Information System (IS)</strong>
-        An information system is a combination of people, processes, data, software, and hardware
-        used to collect, process, store, and communicate information. A system is only as useful as
-        the quality of the information it transmits and the people and processes behind it.
-      </div>
+          <div class="term">
+            <strong>Mental Model</strong>
+            A person’s internal way of understanding how the world works. It includes beliefs, assumptions, and expectations shaped by experience, education, and culture.
+          </div>
 
-      <div class="term">
-        <strong>Curse of Knowledge</strong>
-        The curse of knowledge is the tendency for people who already understand something to have
-        difficulty imagining what it is like not to know it. This often makes experts poor communicators,
-        because they skip steps, use jargon, or assume background knowledge that others do not have.
-      </div>
+          <div class="term">
+            <strong>Information System (IS)</strong>
+            A combination of people, processes, data, software, and hardware used to collect, process, store, and communicate information.
+          </div>
 
-      <div class="term">
-        <strong>Business Process</strong>
-        A business process is a set of related steps or activities that an organization follows to complete
-        a task or achieve a goal. In MIS, programs often follow business processes, so flawed assumptions
-        about a process can lead to flawed system design.
-      </div>
+          <div class="term">
+            <strong>Curse of Knowledge</strong>
+            The tendency for people who already understand something to have difficulty imagining what it is like not to know it, which often leads to poor explanations.
+          </div>
 
-      <div class="term">
-        <strong>Technology Hype Cycle</strong>
-        The hype cycle is a model describing how expectations about a new technology rise rapidly,
-        often exceed reality, crash into disappointment, and then recover as practical uses become clearer.
-        The classic stages are: innovation trigger, peak of inflated expectations, trough of disillusionment,
-        slope of enlightenment, and plateau of productivity.
-      </div>
+          <div class="term">
+            <strong>Business Process</strong>
+            A set of related activities an organization follows to complete a task or achieve a goal. In MIS, systems often automate or support these processes.
+          </div>
 
-      <div class="term">
-        <strong>Peak of Inflated Expectations</strong>
-        The stage in the hype cycle when excitement and expectations about a technology become unrealistically high.
-        People may believe the technology will transform everything immediately, even before real evidence supports that view.
-      </div>
+          <div class="term">
+            <strong>Technology Hype Cycle</strong>
+            A model showing how expectations about a new technology rise quickly, exceed reality, fall into disappointment, and later recover as practical uses become clearer.
+          </div>
 
-      <div class="term">
-        <strong>Trough of Disillusionment</strong>
-        The stage in the hype cycle when enthusiasm falls because the technology does not yet meet the exaggerated expectations.
-        Failures, limitations, and weak adoption become more visible at this stage.
-      </div>
+          <div class="term">
+            <strong>Peak of Inflated Expectations</strong>
+            The stage of the hype cycle when excitement and expectations are unrealistically high.
+          </div>
 
-      <div class="term">
-        <strong>Slope of Enlightenment</strong>
-        The stage in which people begin to understand where the technology actually creates value.
-        Instead of hype, the focus shifts to workable uses, better processes, and realistic results.
-      </div>
+          <div class="term">
+            <strong>Trough of Disillusionment</strong>
+            The stage when enthusiasm drops because real results do not match the earlier hype.
+          </div>
 
-      <div class="term">
-        <strong>Plateau of Productivity</strong>
-        The stage in which a technology becomes broadly useful and accepted because its practical benefits are clearer
-        and more consistently delivered.
-      </div>
+          <div class="term">
+            <strong>Slope of Enlightenment</strong>
+            The stage when people begin to understand where the technology creates real value.
+          </div>
 
-      <div class="term">
-        <strong>Technology Adoption</strong>
-        The decision by individuals or organizations to begin using a technology in practice.
-        Adoption depends not only on excitement, but also on real demand, readiness, usefulness, and cost.
-      </div>
+          <div class="term">
+            <strong>Plateau of Productivity</strong>
+            The stage when a technology becomes broadly useful because its benefits are more proven and stable.
+          </div>
 
-      <div class="term">
-        <strong>Diffusion</strong>
-        Diffusion is the broader spread of a technology through a market, industry, or society over time.
-        A technology may be adopted by some users without yet achieving widespread diffusion.
-      </div>
+          <div class="term">
+            <strong>Technology Adoption</strong>
+            The decision by individuals or organizations to actually begin using a technology.
+          </div>
 
-      <div class="term">
-        <strong>Actual Demand</strong>
-        Real customer demand shown by people who are actually willing to buy, use, and continue using a product or service.
-      </div>
+          <div class="term">
+            <strong>Diffusion</strong>
+            The spread of a technology through a market or society over time.
+          </div>
 
-      <div class="term">
-        <strong>Perceived Market Readiness</strong>
-        What firms think the market wants or is prepared to adopt, whether or not customers actually behave that way.
-      </div>
+          <div class="term">
+            <strong>Actual Demand</strong>
+            Real demand shown by customers who are willing to buy, use, and continue using a product or service.
+          </div>
 
-      <div class="term">
-        <strong>Speculative or Anticipatory Adoption</strong>
-        Investment or early adoption based on the belief that a technology will become more valuable in the future,
-        even if current demand is still limited.
-      </div>
-    </section>
+          <div class="term">
+            <strong>Perceived Market Readiness</strong>
+            What firms think the market wants or is ready to adopt, whether or not customers actually behave that way.
+          </div>
 
-    <section id="connections">
-      <h2>Why These Ideas Matter in MIS</h2>
-      <p>
-        MIS is not only technical. It is also about translating business needs into systems that people can use.
-        That means communication matters. If a designer’s mental model is wrong, the system may block what users
-        actually need to do. If an expert suffers from the curse of knowledge, they may explain a system poorly or
-        design it in a way that only makes sense to other experts.
-      </p>
-      <p>
-        The chapter also connects MIS to real business decisions about AI and emerging technologies. A company can spend
-        billions of dollars on AI, but that does not guarantee widespread adoption or useful results. Looking at the numbers
-        matters because spending shows priorities, but usage shows whether the technology is actually creating value.
-      </p>
-      <p class="small">
-        Good exam idea to remember: <strong>investment ≠ adoption ≠ diffusion</strong>.
-      </p>
-    </section>
+          <div class="term">
+            <strong>Speculative or Anticipatory Adoption</strong>
+            Investment or early use based on the belief that a technology will become more valuable in the future, even if current demand is still limited.
+          </div>
+        </div>
 
-    <section id="quiz">
-      <h2>Chapter 1 Practice Quiz</h2>
+        <div class="highlight">
+          Best exam shortcut to remember: companies can spend heavily on a technology before it is widely adopted, and adoption can happen before full market diffusion.
+        </div>
+      </section>
 
-      <div class="quiz-question">
-        <strong>1. Which statement best defines a mental model?</strong>
-        <ul>
-          <li>A. A hardware blueprint used to build computers</li>
-          <li>B. A person’s learned way of understanding how the world works</li>
-          <li>C. A dataset stored inside an information system</li>
-          <li>D. A chart showing business profits over time</li>
+      <section class="section-card" id="connections">
+        <h2>Why These Ideas Matter in MIS</h2>
+        <p>
+          MIS is not just technical. It is about translating business needs into systems that people can actually use.
+          If a designer’s mental model is wrong, the system may not match what users really need. If someone suffers from the curse of knowledge, they may explain the system poorly or design it in a way that only experts understand.
+        </p>
+        <p>
+          This chapter also helps explain why new technologies like AI can receive huge investment long before they become widely useful in everyday business settings. Spending shows interest and priorities, but usage shows whether the technology is actually creating value.
+        </p>
+      </section>
+
+      <section class="quiz-card" id="quiz">
+        <h2>Chapter 1 Practice Quiz</h2>
+        <div class="quiz-list">
+          <div class="quiz-question">
+            <strong>1. Which statement best defines a mental model?</strong>
+            <ul>
+              <li>A. A hardware blueprint used to build computers</li>
+              <li>B. A person’s learned way of understanding how the world works</li>
+              <li>C. A dataset stored inside an information system</li>
+              <li>D. A chart showing business profits over time</li>
+            </ul>
+            <div class="answer">Correct Answer: B</div>
+          </div>
+
+          <div class="quiz-question">
+            <strong>2. Why does the curse of knowledge matter in MIS?</strong>
+            <ul>
+              <li>A. It causes all new technologies to fail</li>
+              <li>B. It prevents hardware from processing data correctly</li>
+              <li>C. Experts may struggle to explain systems clearly to beginners</li>
+              <li>D. It guarantees that users will misunderstand software</li>
+            </ul>
+            <div class="answer">Correct Answer: C</div>
+          </div>
+
+          <div class="quiz-question">
+            <strong>3. In the hype cycle, what usually happens during the trough of disillusionment?</strong>
+            <ul>
+              <li>A. A technology becomes fully mature and stable</li>
+              <li>B. Expectations collapse because results do not match the hype</li>
+              <li>C. Firms stop investing in all technology permanently</li>
+              <li>D. Real demand sharply exceeds supply for the first time</li>
+            </ul>
+            <div class="answer">Correct Answer: B</div>
+          </div>
+
+          <div class="quiz-question">
+            <strong>4. Which of the following best explains why investment is not the same as adoption?</strong>
+            <ul>
+              <li>A. Companies can spend money on a technology even if customers do not use it widely</li>
+              <li>B. Adoption only matters for non-technical industries</li>
+              <li>C. Investment and adoption always occur at the same rate</li>
+              <li>D. Adoption refers only to employee salaries</li>
+            </ul>
+            <div class="answer">Correct Answer: A</div>
+          </div>
+
+          <div class="quiz-question">
+            <strong>5. Which set correctly lists the five stages of the hype cycle in order?</strong>
+            <ul>
+              <li>A. Plateau of productivity, slope of enlightenment, innovation trigger, peak, trough</li>
+              <li>B. Innovation trigger, peak of inflated expectations, trough of disillusionment, slope of enlightenment, plateau of productivity</li>
+              <li>C. Peak of inflated expectations, innovation trigger, trough of disillusionment, diffusion, maturity</li>
+              <li>D. Actual demand, perceived demand, anticipatory demand, enlightenment, productivity</li>
+            </ul>
+            <div class="answer">Correct Answer: B</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="source-card" id="sources">
+        <h2>Sources</h2>
+        <ul class="source-list">
+          <li>Course slides: <em>Setting the Stage</em> (Chapter 1 / MIS introduction materials).</li>
+          <li>Heath, Chip, and Dan Heath. <em>Made to Stick: Why Some Ideas Survive and Others Die</em>.</li>
+          <li>Gartner materials explaining the Hype Cycle.</li>
+          <li>Moore, Geoffrey A. <em>Crossing the Chasm</em>.</li>
         </ul>
-        <div class="answer">Correct Answer: B</div>
-      </div>
-
-      <div class="quiz-question">
-        <strong>2. Why does the curse of knowledge matter in MIS?</strong>
-        <ul>
-          <li>A. It causes all new technologies to fail</li>
-          <li>B. It prevents hardware from processing data correctly</li>
-          <li>C. Experts may struggle to explain systems clearly to beginners</li>
-          <li>D. It guarantees that users will misunderstand software</li>
-        </ul>
-        <div class="answer">Correct Answer: C</div>
-      </div>
-
-      <div class="quiz-question">
-        <strong>3. In the hype cycle, what usually happens during the trough of disillusionment?</strong>
-        <ul>
-          <li>A. A technology becomes fully mature and stable</li>
-          <li>B. Expectations collapse because results do not match the hype</li>
-          <li>C. Firms stop investing in all technology permanently</li>
-          <li>D. Real demand sharply exceeds supply for the first time</li>
-        </ul>
-        <div class="answer">Correct Answer: B</div>
-      </div>
-
-      <div class="quiz-question">
-        <strong>4. Which of the following best explains why investment is not the same as adoption?</strong>
-        <ul>
-          <li>A. Companies can spend money on a technology even if customers do not use it widely</li>
-          <li>B. Adoption only matters for non-technical industries</li>
-          <li>C. Investment and adoption always occur at the same rate</li>
-          <li>D. Adoption refers only to employee salaries</li>
-        </ul>
-        <div class="answer">Correct Answer: A</div>
-      </div>
-
-      <div class="quiz-question">
-        <strong>5. Which set correctly lists the five stages of the hype cycle in order?</strong>
-        <ul>
-          <li>A. Plateau of productivity, slope of enlightenment, innovation trigger, peak, trough</li>
-          <li>B. Innovation trigger, peak of inflated expectations, trough of disillusionment, slope of enlightenment, plateau of productivity</li>
-          <li>C. Peak of inflated expectations, innovation trigger, trough of disillusionment, diffusion, maturity</li>
-          <li>D. Actual demand, perceived demand, anticipatory demand, enlightenment, productivity</li>
-        </ul>
-        <div class="answer">Correct Answer: B</div>
-      </div>
-    </section>
-
-    <section id="citations">
-      <h2>Citations / Sources</h2>
-      <ul>
-        <li>Course slides: <em>Setting the Stage</em> (Chapter 1 / MIS intro slides).</li>
-        <li>Heath, Chip, and Dan Heath. <em>Made to Stick: Why Some Ideas Survive and Others Die</em>.</li>
-        <li>Gartner. Materials on the Hype Cycle.</li>
-        <li>Geoffrey A. Moore. <em>Crossing the Chasm</em>.</li>
-      </ul>
-      <p class="small">
-        Replace or expand these with full citations in the exact format your professor wants.
-      </p>
-    </section>
+      </section>
+    </div>
   </main>
 
   <footer>
-    MIS Extra Credit Website Draft • Built as a clean starter page for Neocities
+    <div class="footer-card">
+      <strong>MIS Extra Credit Site</strong> • Clean HTML design for GitHub Pages • Update this same style for the rest of your chapters.
+    </div>
   </footer>
 </body>
 </html>
